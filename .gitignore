@@ -1,0 +1,20 @@
+# Obsidian vault — exclude per-user UI state
+**/.obsidian/workspace.json
+**/.obsidian/workspace-mobile.json
+**/.obsidian/cache
+**/.obsidian/.trash/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.vscode/
+.idea/
+
+# Secrets
+.env
+.env.local
+*.pem
+*.key
