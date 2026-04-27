@@ -107,8 +107,8 @@
 - **Severidade:** Bloqueador
 - **Lente:** L6 (acessibilidade)
 - **Seção(ões) afetada(s):** §1.3 (linha 29), §5.4 (linha 164), §5.14 (linhas 226–231), §8 (linha 375), §10.1 (linha 435), §11.1 (linha 476)
-- **Evidência:** Todas as referências a acessibilidade citam exclusivamente "WCAG 2.1 AA". O Modelo de Acessibilidade em Governo Eletrônico (eMAG 3.1) — referência **mandatória** para sítios de órgãos públicos brasileiros segundo Portaria 03/2007 do MP/SLTI — não é mencionado. Lei Brasileira de Inclusão (Lei 13.146/2015) também não.
-- **Problema:** WCAG 2.2 foi publicada como W3C Recommendation em 5 out 2023 (a verificar a data exata). Para projetos novos iniciados em 2026, o piso defensável é WCAG 2.2 AA, não 2.1. Adicionalmente, o CMSMRI é equipamento da Prefeitura Municipal (§2.2), portanto sujeito ao eMAG quando publicar materiais digitais.
+- **Evidência:** Todas as referências a acessibilidade citam exclusivamente "WCAG 2.1 AA". O Modelo de Acessibilidade em Governo Eletrônico (eMAG 3.1) — referência **vinculante para o Executivo Federal** via Portaria 03/2007 SLTI/MP, e **recomendada para demais entes** com vinculação indireta via Lei 13.146/2015 (LBI) art. 63 e via adesão municipal — não é mencionado. Lei Brasileira de Inclusão (Lei 13.146/2015) também não.
+- **Problema:** WCAG 2.2 foi publicada como W3C Recommendation em 5 out 2023 (a verificar a data exata). Para projetos novos iniciados em 2026, o piso defensável é WCAG 2.2 AA, não 2.1. Adicionalmente, o CMSMRI é equipamento da Prefeitura Municipal (§2.2), portanto sujeito a regras municipais de acessibilidade digital quando estas existirem (a verificar instrumento normativo municipal de Extrema-MG); na ausência delas, eMAG 3.1 funciona como referência defensável de boas práticas, ainda que não automaticamente vinculante.
 - **Impacto:** O design system pode nascer formalmente desatualizado. Risco político concreto: nota técnica do MPF ou questionamento do CMS sobre conformidade de acessibilidade, especialmente em materiais voltados a usuários do Centro Integrar (TEA / DI), onde acessibilidade cognitiva é central.
 - **Correção proposta para v1.1:**
   1. Substituir todas as ocorrências de "WCAG 2.1 AA" por "**WCAG 2.2 AA + eMAG 3.1**".
@@ -203,7 +203,7 @@
 - **Impacto:** O agente pode declarar "pronto" iterativamente sem que ninguém o desafie. Caio recebe um documento marcado como "pronto" e não tem instrumento para questionar. Em contraste, o §5 do CLAUDE.md global oferece **rubrica explícita de 10 eixos com cutoff em 94/100**, mas o brain-dump não a importou.
 - **Correção proposta para v1.1:**
   1. Em §8, substituir a tabela por rubrica auto-avaliada de 10 eixos, importando do CLAUDE.md global §5: fidelidade factual, completude, conformidade regulatória, viabilidade operacional, clareza, adequação às normas pt-BR, legibilidade, arquitetura textual, fluidez, fidedignidade.
-  2. Definir cutoff: **score ≥ 94/100 → entregar; < 94 → identificar eixo mais frágil e iterar até 1× nele**.
+  2. Definir cutoff e quebrar loop de auto-aprovação: **score ≥ 94/100 → entregar; < 94 → identificar o eixo de menor pontuação (atribuição forçada, não opcional) + executar 1 round de melhoria dirigida apenas naquele eixo + reavaliar**. Vedar mais de 2 rounds por eixo sem gate humano (cf. A02), evitando reverberação interna.
   3. Em §6.4, substituir as 6 condições atuais por: (a) rubrica ≥ 94/100; (b) gates humanos atendidos (cf. A02); (c) §11.1 e §11.2 marcados.
   4. Designar validador para cada métrica do §11 (ex.: "datas validadas → pelo agente, com flag explícito quando inferidas").
 
@@ -381,7 +381,7 @@ Lista priorizada de edits concretos, prontos para serem aplicados quando o stake
 | E08 | §9 | Adicionar §9.4 — Pré-voo de tooling |
 | E09 | §5 | Adicionar §5.19 — Licenciamento e Propriedade Intelectual |
 | E10 | §10.2 | Expandir cláusula de "cópia de identidade" para cobrir derivação não-autorizada |
-| E11 | §8 | Substituir tabela atual por rubrica 10 eixos × cutoff 94/100 |
+| E11 | §8 | Substituir tabela atual por rubrica 10 eixos × cutoff 94/100 + atribuição forçada de eixo mais frágil + máx. 2 rounds dirigidos por eixo sem gate humano |
 
 ### 6.3 Médios (até v1.1)
 
@@ -413,7 +413,7 @@ Pontos onde a revisão **não pode decidir solo** e exige posicionamento do stak
 4. **Gating humano (A02):** Caio tem banda atencional para 3 gates humanos (Fases 1, 2, 5) além do gate final (Fase 9)? Caso negativo, qual subset prioritário?
 5. **Skills indisponíveis (A05):** vale rodar inventário formal de skills antes da Fase 0, ou aceitar fallback para prompts internos?
 6. **Tom da equipe simulada (A06):** o ganho heurístico dos 13 papéis compensa o risco de falsa autoridade? Considerar reduzir para 5–7 papéis essenciais.
-7. **WCAG 2.2 vs 2.1 (A03):** alinhar com possível política digital municipal já existente; se Extrema-MG já adota outro padrão, refletir.
+7. **WCAG 2.2 + eMAG 3.1 (A03):** confirmar se Extrema-MG tem decreto/instrução normativa municipal vinculando acessibilidade digital. Em caso afirmativo, eMAG passa de "boa prática defensável" a obrigação local; em caso negativo, decisão política sobre adotá-lo voluntariamente como padrão da Coordenadoria.
 8. **Multilinguismo (A09):** confirmar via dados Censo 2022 a presença de comunidades migrantes em Extrema antes de codificar política de tradução.
 9. **Aprovação do patch v1.1:** dos 19 edits listados em §6, quais aceitar? A revisão recomenda **todos os bloqueadores e altos**; médios e baixos podem ser deferidos para revisão trimestral.
 
